@@ -25,7 +25,7 @@ public class ObjectRotator : ObjectManipulator
 			selectCollider = attachedCollider;
 
 			gizmo = gizmoInstance.transform;
-			gizmo.name = this.transform.name + "_Gizmo";
+			gizmo.name = this.transform.name + "_ObjectRotator_Gizmo";
 			gizmo.parent = this.transform;
 
 			gizmo.localScale = Vector3.one * gizmoScale;

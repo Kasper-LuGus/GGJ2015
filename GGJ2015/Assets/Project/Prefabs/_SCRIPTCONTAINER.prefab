@@ -39,9 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bef3028d713584da954d92e9a695e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manipulators: []
   rotateGizmoPrefab: {fileID: 147958, guid: 66f33b3bfbf1d5c4390cfde1ad216754, type: 2}
-  translateGizmoPrefab: {fileID: 0}
+  translateGizmoPrefab: {fileID: 144390, guid: a4fd6feb346d81e4cbcdc25ec951467b, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

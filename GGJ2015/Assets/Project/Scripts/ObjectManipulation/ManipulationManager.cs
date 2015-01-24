@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 {
-//	public List<ObjectManipulator> manipulators = new List<ObjectManipulator>();
-
 	public GameObject rotateGizmoPrefab = null;
 	public GameObject translateGizmoPrefab = null;
 
-	protected ObjectManipulator currentManipulator = null;
+	protected ManipulatorGroup currentManipulatorGroup = null;
+	protected Rect guiRect = new Rect(Screen.width- 200, 0, 200, Screen.height);
 
 	public void SetupLocal()
 	{
@@ -32,74 +31,80 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 
 	protected void Update() 
 	{
-		if (LugusInput.use.down)
+		if (LugusInput.use.down && !guiRect.Contains(LugusInput.use.currentPosition))
 		{
 			Transform hit = LugusInput.use.RayCastFromMouseDown(LugusCamera.game);
 
 			// If we hit something...
 			if (hit != null)
 			{
-
-				ObjectManipulator[] manipulators = hit.GetComponentsInParent<ObjectManipulator>(false);
-				ObjectManipulator manipulator = null;
-
-				foreach(ObjectManipulator om in manipulators)
-				{
-					if (om.enabled)
-					{
-						manipulator = om;
-						break;
-					}
-				}
+				// Select which manipulator to use...
+				// TODO: Make this work better.
+				ManipulatorGroup group = hit.GetComponent<ManipulatorGroup>();
 			
 				// Check whether we clicked a manipulator.
 
 				// If yes...
-				if (manipulator != null )
+				if (group != null )
 				{
 					// Is this a different manipulator than the previous one? If no, do nothing. If yes, deactivate the rest and activate the new one.
-					if ( manipulator != currentManipulator )
+					if ( group != currentManipulatorGroup )
 					{
-						DeactivateAll();
-						currentManipulator = manipulator;
-						currentManipulator.Activate();
+						if (currentManipulatorGroup != null)
+							currentManipulatorGroup.Deactivate();
+
+						currentManipulatorGroup = group;
+						currentManipulatorGroup.Activate();
 					}
 				}
 				else // If no, we hit some other collider. Deactivate all manipulators.
 				{
-					currentManipulator = null;
-					DeactivateAll();
+					if (currentManipulatorGroup != null)
+						currentManipulatorGroup.Deactivate();
+
+					currentManipulatorGroup = null;
 				}
 			}
+			// FIXME: This should work, but doesn't currently because the OnGUI stuffs also triggers down event when you click on it.
 			else // If we hit nothing, deactivate all manipulators.
 			{
-				currentManipulator = null;
-				DeactivateAll();
+				if (currentManipulatorGroup != null)
+					currentManipulatorGroup.Deactivate();
+
+				currentManipulatorGroup = null;
 			}
 		}
 
-		if (currentManipulator != null)
-			currentManipulator.UpdateManipulator();
+		if (currentManipulatorGroup != null && !currentManipulatorGroup.locked)
+			currentManipulatorGroup.UpdateManipulators();
 	}
 
 	protected void OnGUI()
 	{
-		if (currentManipulator != null)
+		if (currentManipulatorGroup != null)
 		{
-			if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 40, 150, 40), "Reset " + currentManipulator.GetType().ToString() ))
+			GUI.Box(guiRect, "");
+
+			GUILayout.BeginArea(guiRect);
+
+			if (GUILayout.Button("Reset " + currentManipulatorGroup.GetType().ToString() ))
 			{
-				currentManipulator.Reset();
+				currentManipulatorGroup.Reset();
 			}
+
+			string toggleText = "Lock";
+
+			if (currentManipulatorGroup.locked)
+				toggleText = "Unlock";
+
+			if (GUILayout.Button(toggleText + " " + currentManipulatorGroup.GetType().ToString() ))
+			{
+				currentManipulatorGroup.locked = !currentManipulatorGroup.locked;
+			}
+
+			GUILayout.EndArea();
 		}
 		
 
-	}
-
-	protected void DeactivateAll()
-	{
-//		foreach(ObjectManipulator manipulator in manipulators)
-//		{
-//			manipulator.Deactivate();
-//		}
 	}
 }

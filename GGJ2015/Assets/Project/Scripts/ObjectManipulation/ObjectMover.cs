@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class ObjectMover : ObjectManipulator 
 {
-	public float moveSpeed = 5.0f;
-	
+	public float smoothMultiplier = 6.0f;
+		
 	protected Transform gizmo = null;
 	protected Vector3 originalPosition = Vector3.zero;
 	protected Vector3 lastInputPosition = Vector3.zero;
@@ -25,7 +25,7 @@ public class ObjectMover : ObjectManipulator
 			selectCollider = attachedCollider;
 
 			gizmo = gizmoInstance.transform;
-			gizmo.name = this.transform.name + "_Renderer";
+			gizmo.name = this.transform.name + "_ObjectMover_Gizmo";
 			gizmo.parent = this.transform;
 			
 			gizmo.localScale = Vector3.one * gizmoScale;
@@ -53,7 +53,10 @@ public class ObjectMover : ObjectManipulator
 
 		if (LugusInput.use.dragging || LugusInput.use.down)
 		{
-			this.transform.position =  LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, this.transform.position, LugusCamera.game) + currentOffset;
+			// Lerp the translation a bit.
+			Vector3 newPosition = LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, this.transform.position, LugusCamera.game) + currentOffset;
+
+			this.transform.position = Vector3.Lerp(this.transform.position, newPosition, Time.deltaTime * smoothMultiplier);
 		}
 		
 	}

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(ManipulatorGroup))]
 public abstract class ObjectManipulator : MonoBehaviour 
 {
 	public float gizmoScale = 1.05f;

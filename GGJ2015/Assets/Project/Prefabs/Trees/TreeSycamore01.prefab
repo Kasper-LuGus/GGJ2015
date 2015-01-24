@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 482118}
   - 33: {fileID: 3382118}
   - 23: {fileID: 2382118}
-  - 111: {fileID: 11182118}
+  - 136: {fileID: 13692002}
   m_Layer: 0
   m_Name: TreeSycamore01
   m_TagString: Untagged
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182118}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10594.3213, y: 2519.45557, z: -959.514526}
+  m_LocalPosition: {x: 109.977158, y: 29.9166145, z: 98.5371475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,20 +58,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182118}
   m_Mesh: {fileID: 4300000, guid: 0f362a31bd1113061100b7a844295342, type: 3}
---- !u!111 &11182118
-Animation:
+--- !u!136 &13692002
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Radius: .600000024
+  m_Height: 20
+  m_Direction: 1
+  m_Center: {x: 0, y: 9, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

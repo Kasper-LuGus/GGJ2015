@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 479408}
   - 33: {fileID: 3379408}
   - 23: {fileID: 2379408}
+  - 136: {fileID: 13653092}
   m_Layer: 0
   m_Name: TreeBirch01
   m_TagString: Untagged
@@ -23,8 +24,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179408}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.0597916, y: 157.341156, z: -237.640991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 108.561256, y: 19.6540337, z: 87.7155991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,6 +58,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179408}
   m_Mesh: {fileID: 4300000, guid: 304a59cf6680e2d45a94ceeb3a713063, type: 3}
+--- !u!136 &13653092
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .259425342
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

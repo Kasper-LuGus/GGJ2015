@@ -7,7 +7,7 @@ class ProjectAssetPostprocessor : AssetPostprocessor
 	// Use this to restrict this script to certain directories.
 	// Assets placed outside of these directories can then remain unaffected by this script and retain the settings set by the author (e.g. for asset packs or standard assets).
 	
-	protected static string[] affectedFolder = new string[]{"Assets/Project"};
+	protected static string[] affectedFolder = new string[]{};
 
 	public static bool IsAffectedFolder(string path)
 	{

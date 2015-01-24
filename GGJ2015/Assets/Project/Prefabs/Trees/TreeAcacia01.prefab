@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 420324}
   - 33: {fileID: 3320324}
   - 23: {fileID: 2320324}
+  - 136: {fileID: 13624096}
   m_Layer: 0
   m_Name: TreeAcacia01
   m_TagString: Untagged
@@ -24,8 +25,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 472}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 100.500717, y: 14.8632183, z: 83.6042938}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,6 +58,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120324}
   m_Mesh: {fileID: 4300000, guid: 33148e9ffe61c45e1b4cc76e93b334c6, type: 3}
+--- !u!136 &13624096
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .657489002
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

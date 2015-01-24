@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TreeAcaciaLeaves01
-  m_Shader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10511, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -39,19 +39,19 @@ Material:
       data:
         first:
           name: _BaseLight
-        second: .417910457
+        second: .882196188
       data:
         first:
           name: _AO
         second: 0
       data:
         first:
-          name: _Occlusion
-        second: 0
-      data:
-        first:
           name: _SquashAmount
         second: 1
+      data:
+        first:
+          name: _Occlusion
+        second: 0
     m_Colors:
       data:
         first:

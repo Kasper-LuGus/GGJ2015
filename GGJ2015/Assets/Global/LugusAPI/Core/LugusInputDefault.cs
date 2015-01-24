@@ -134,7 +134,7 @@ public class LugusInputDefault : LugusSingletonRuntime<LugusInputDefault>
      
         mainTouchID = currentMainTouch.fingerId;
 
-		currentPosition = currentMainTouch.position;;
+		currentPosition = currentMainTouch.position;
 
 		if (currentMainTouch.phase == TouchPhase.Began)
 		{
@@ -233,7 +233,7 @@ public class LugusInputDefault : LugusSingletonRuntime<LugusInputDefault>
 	
 	public Vector3 ScreenTo3DPoint( Transform referenceObject )
 	{
-		return ScreenTo3DPoint( Input.mousePosition, referenceObject );
+		return ScreenTo3DPoint( currentPosition, referenceObject );
 	}
 	
 	public Vector3 ScreenTo3DPoint( Vector3 screenPoint, Transform referenceObject )

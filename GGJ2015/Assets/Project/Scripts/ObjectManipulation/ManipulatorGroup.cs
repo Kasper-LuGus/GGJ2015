@@ -15,6 +15,11 @@ public class ManipulatorGroup : MonoBehaviour
 		manipulators.Clear();
 		manipulators.AddRange(gameObject.FindComponentsInChildren<ObjectManipulator>(true));
 
+		foreach(ObjectManipulator om in manipulators)
+		{
+			om.group = this;
+		}
+
 		gameObject.CacheComponent<Collider>(ref mainCollider);
 
 		// Rigidbody is not per se required. Not having one could be expected behavior.

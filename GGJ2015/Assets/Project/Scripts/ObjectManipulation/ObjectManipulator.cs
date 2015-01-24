@@ -7,6 +7,7 @@ public abstract class ObjectManipulator : MonoBehaviour
 {
 	public float gizmoScale = 1.05f;
 	public Collider selectCollider = null;
+	public ManipulatorGroup group = null;
 
 	public virtual void SetupLocal()
 	{

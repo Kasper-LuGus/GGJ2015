@@ -10,6 +10,7 @@ public class ObjectMover : ObjectManipulator
 	protected Vector3 originalPosition = Vector3.zero;
 	protected Vector3 lastInputPosition = Vector3.zero;
 	protected Vector3 currentOffset = Vector3.zero;
+	protected Vector3 referencePosition = Vector3.zero;
 	
 	public override void SetupLocal()
 	{
@@ -49,14 +50,17 @@ public class ObjectMover : ObjectManipulator
 		if (LugusInput.use.down)
 		{
 			currentOffset = this.transform.position - LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, this.transform.position, LugusCamera.game);
+			referencePosition = this.transform.position;
 		}
 
 		if (LugusInput.use.dragging || LugusInput.use.down)
 		{
 			// Lerp the translation a bit.
-			Vector3 newPosition = LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, this.transform.position, LugusCamera.game) + currentOffset;
+			Vector3 newPosition = LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, referencePosition, LugusCamera.game);
 
-			this.transform.position = Vector3.Lerp(this.transform.position, newPosition, Time.deltaTime * smoothMultiplier);
+			//this.transform.position = Vector3.Lerp(this.transform.position, newPosition, Time.deltaTime * smoothMultiplier);
+
+			this.transform.position = newPosition;
 		}
 		
 	}

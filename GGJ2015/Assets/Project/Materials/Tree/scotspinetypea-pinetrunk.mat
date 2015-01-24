@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: c9f636a2b314ed36c25fd64b70184ce4, type: 3}
+          m_Texture: {fileID: 2800000, guid: a9ab9155339502d49a142f1448e50bc8, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -34,10 +34,6 @@ Material:
         second: .5
       data:
         first:
-          name: _Outline
-        second: .00499999989
-      data:
-        first:
           name: _BaseLight
         second: .349999994
       data:
@@ -46,12 +42,16 @@ Material:
         second: 2.4000001
       data:
         first:
-          name: _SquashAmount
-        second: 1
-      data:
-        first:
           name: _Occlusion
         second: 7.5
+      data:
+        first:
+          name: _Outline
+        second: .00499999989
+      data:
+        first:
+          name: _SquashAmount
+        second: 1
     m_Colors:
       data:
         first:
@@ -63,12 +63,12 @@ Material:
         second: {r: 1, g: 1, b: 0, a: 0}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
           name: _Scale
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

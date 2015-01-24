@@ -3,6 +3,11 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Item
+  - 
+  - 
+  - 
+  - Woods
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -13,7 +18,7 @@ TagManager:
   Builtin Layer 6: 
   Builtin Layer 7: 
   User Layer 8: Region
-  User Layer 9: 
+  User Layer 9: Item
   User Layer 10: 
   User Layer 11: 
   User Layer 12: 

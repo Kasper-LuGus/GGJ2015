@@ -24,9 +24,9 @@ public class NightEvent : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        callsToSleep.Add("It's " + hourToSleep + " o'clock time for dinner.");
-        callsToSleep.Add("It's getting dark outside.");
-        callsToSleep.Add("Come inside it's getting cold.");
+        callsToSleep.Add("Time for dinner!");
+        callsToSleep.Add("It's getting dark outside, dear...");
+        callsToSleep.Add("Come inside! It's getting cold!");
 
         tod.speed = speedDay;
     }
@@ -42,6 +42,9 @@ public class NightEvent : MonoBehaviour
                 if (currentTime >= hourToSleep)
                 {
                     tod.speed = 0;
+					PopupManager.use.ShowPopup(callsToSleep[Random.Range(0, callsToSleep.Count)], PopupManager.PopupType.Grandma);
+
+
                     index = Random.Range(0, callsToSleep.Count - 1);
                 }
             }
@@ -56,35 +59,35 @@ public class NightEvent : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        if (tod.speed == 0)
-        {
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = Color.black;
-            style.fontSize = 28;
-            style.wordWrap = true;
-            int textBoxWidth = textBoxImage.width / 2;
-            int textBoxHeight = textBoxImage.height / 2;
-            GUI.DrawTexture(new Rect(Screen.width / 2 - textBoxWidth / 2, Screen.height - textBoxHeight - 10, textBoxWidth, textBoxHeight), textBoxImage);
-            if (!isSleeping)
-            {  
-                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(callsToSleep[index], callToSleep), style);
-                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight / 2 - 25, 80, 50), "Continue"))
-                {
-                    isSleeping = true;
-                    tod.speed = speedNight;
-                }
-            }
-            else
-            {
-                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(nightEventStrings[index], nightEvent[index]), style);
-                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight/2 - 25, 80, 50), "Continue"))
-                {
-                    isSleeping = false;
-                    tod.speed = speedDay;
-                }
-            }
-        }
-    }
+//    void OnGUI()
+//    {
+//        if (tod.speed == 0)
+//        {
+//            GUIStyle style = new GUIStyle();
+//            style.normal.textColor = Color.black;
+//            style.fontSize = 28;
+//            style.wordWrap = true;
+//            int textBoxWidth = textBoxImage.width / 2;
+//            int textBoxHeight = textBoxImage.height / 2;
+//            GUI.DrawTexture(new Rect(Screen.width / 2 - textBoxWidth / 2, Screen.height - textBoxHeight - 10, textBoxWidth, textBoxHeight), textBoxImage);
+//            if (!isSleeping)
+//            {  
+//                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(callsToSleep[index], callToSleep), style);
+//                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight / 2 - 25, 80, 50), "Continue"))
+//                {
+//                    isSleeping = true;
+//                    tod.speed = speedNight;
+//                }
+//            }
+//            else
+//            {
+//                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(nightEventStrings[index], nightEvent[index]), style);
+//                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight/2 - 25, 80, 50), "Continue"))
+//                {
+//                    isSleeping = false;
+//                    tod.speed = speedDay;
+//                }
+//            }
+//        }
+ //   }
 }

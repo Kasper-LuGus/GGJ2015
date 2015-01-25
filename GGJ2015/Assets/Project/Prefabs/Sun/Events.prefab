@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &191922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 491922}
+  - 114: {fileID: 11491922}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &491922
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11491922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc18be5ac33b1242b4a8ef662fb6ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tod: {fileID: 0}
+  hourToSleep: 18
+  hourToGetUp: 8
+  speedDay: 20
+  speedNight: 20
+  callToSleep: {fileID: 2800000, guid: d5836044382a3d24b83b408f9626f90d, type: 3}
+  nightEvent:
+  - {fileID: 2800000, guid: c62e57026877d1942b99ed41e14a16bc, type: 3}
+  - {fileID: 2800000, guid: a020010cdd0df9d4c866744ca97df605, type: 3}
+  - {fileID: 2800000, guid: f58437bd8a0f6b5429df50811b1ab700, type: 3}
+  nightEventStrings:
+  - Your childhood nemesis came to destroy your precious fortress
+  - The evil girl came to destroy your garden
+  - The naughty dog escaped again from the junkyard.
+  textBoxImage: {fileID: 2800000, guid: 0a6cf9c5768535c4c879e5652106c86c, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 191922}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

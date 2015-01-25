@@ -10,6 +10,16 @@ public class ManipulatorGroup : MonoBehaviour
 	protected List<ObjectManipulator> manipulators = new List<ObjectManipulator>();
 	protected Rigidbody attachedRigidbody = null;
 
+	protected Color oldOutline = Color.black;
+
+	public enum ManipulationType
+	{
+		None = 0,
+		Move = 1,
+		Rotate = 2,
+		Grab = 3
+	}
+
 	public void SetupLocal()
 	{
 		manipulators.Clear();
@@ -53,6 +63,14 @@ public class ManipulatorGroup : MonoBehaviour
 	{
 		if (rigidbody != null)
 			rigidbody.isKinematic = true;
+
+		foreach(ObjectManipulator om in manipulators)
+		{
+			om.Activate();
+		}
+
+		oldOutline = this.renderer.sharedMaterial.GetColor("_OutlineColor");
+		this.renderer.material.SetColor("_OutlineColor", Color.white);
 	}
 
 	public void Deactivate()
@@ -67,14 +85,44 @@ public class ManipulatorGroup : MonoBehaviour
 			rigidbody.isKinematic = false;
 			rigidbody.WakeUp();
 		}
+
+		this.renderer.material.SetColor("_OutlineColor", oldOutline);
 	}
 
-	public void UpdateManipulators()
+	public void UpdateManipulators(ManipulationType type)
 	{
-		if (manipulators.Count > 0)
+		// TODO FIXME: This makes very little sense...
+		if (type == ManipulationType.Move)
 		{
-			manipulators[0].UpdateManipulator();
+			
+			foreach(ObjectManipulator om in manipulators)
+			{
+				if (om is ObjectMover)
+					om.UpdateManipulator();
+			}
 		}
+		else if  (type == ManipulationType.Rotate)
+		{
+			foreach(ObjectManipulator om in manipulators)
+			{
+				if (om is ObjectRotator)
+					om.UpdateManipulator();
+			}
+		}
+		else if  (type == ManipulationType.Grab)
+		{
+			foreach(ObjectManipulator om in manipulators)
+			{
+				if (om is ObjectGrabber)
+					om.UpdateManipulator();
+			}
+		}
+
+
+//		if (manipulators.Count > 0)
+//		{
+//			manipulators[0].UpdateManipulator();
+//		}
 	}
 
 	public void Reset()

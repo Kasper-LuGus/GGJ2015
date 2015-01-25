@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ObjectRotator : ObjectManipulator 
 {
-	public float rotateSpeed = 5.0f;
+	public float rotateSpeed = 60.0f;
 
 	protected Transform gizmo = null;
 	protected Quaternion originalRotation = Quaternion.identity;
@@ -32,7 +32,7 @@ public class ObjectRotator : ObjectManipulator
 			gizmo.localPosition = Vector3.zero;
 			gizmo.localRotation = Quaternion.identity;
 
-			gizmo.renderer.enabled = false;
+			//gizmo.renderer.enabled = false;
 		}
 
 	
@@ -46,22 +46,26 @@ public class ObjectRotator : ObjectManipulator
 	public override void UpdateManipulator ()
 	{
 
-		if (!LugusInput.use.dragging)
-			return;
+//		if (!LugusInput.use.dragging)
+//			return;
+//
+//		transform.Rotate(LugusCamera.game.transform.up, -1.0f * Input.GetAxis("Mouse X") * rotateSpeed, Space.World );
+//		transform.Rotate(LugusCamera.game.transform.right, Input.GetAxis("Mouse Y") * rotateSpeed, Space.World );
 
-		transform.Rotate(LugusCamera.game.transform.up, -1.0f * Input.GetAxis("Mouse X") * rotateSpeed, Space.World );
-		transform.Rotate(LugusCamera.game.transform.right, Input.GetAxis("Mouse Y") * rotateSpeed, Space.World );
+		this.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Space.World);
+
+		this.transform.Rotate(LugusCamera.game.transform.right * rotateSpeed * Time.deltaTime * Input.GetAxis("Vertical"), Space.World);
 
 	}
 
 	public override void Activate()
 	{
-		gizmo.renderer.enabled = true;
+		//gizmo.renderer.enabled = true;
 	}
 	
 	public override void Deactivate()
 	{
-		gizmo.renderer.enabled = false;
+		//gizmo.renderer.enabled = false;
 	}
 
 	public override void Reset ()

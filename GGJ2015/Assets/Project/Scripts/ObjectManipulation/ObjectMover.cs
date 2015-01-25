@@ -5,12 +5,17 @@ using System.Collections.Generic;
 public class ObjectMover : ObjectManipulator 
 {
 	public float smoothMultiplier = 6.0f;
+	public float moveSpeed = 3.0f;
 		
 	protected Transform gizmo = null;
 	protected Vector3 originalPosition = Vector3.zero;
 	protected Vector3 lastInputPosition = Vector3.zero;
 	protected Vector3 currentOffset = Vector3.zero;
 	protected Vector3 referencePosition = Vector3.zero;
+
+	protected BoxCollider up = null;
+	protected BoxCollider right = null;
+	protected BoxCollider forward = null;
 	
 	public override void SetupLocal()
 	{
@@ -32,8 +37,14 @@ public class ObjectMover : ObjectManipulator
 			gizmo.localScale = Vector3.one * gizmoScale;
 			gizmo.localPosition = Vector3.zero;
 			gizmo.localRotation = Quaternion.identity;
+
+			up = gizmo.gameObject.FindComponentInChildren<BoxCollider>(true, "Up");
+			right = gizmo.gameObject.FindComponentInChildren<BoxCollider>(true, "Right");
+			forward = gizmo.gameObject.FindComponentInChildren<BoxCollider>(true, "Forward");
 			
-			gizmo.renderer.enabled = false;
+			gizmo.gameObject.SetActive(false);
+
+
 		}
 		
 		
@@ -43,36 +54,26 @@ public class ObjectMover : ObjectManipulator
 	{
 		base.SetupGlobal();
 	}
-	
+
+	protected Transform currentGizmo = null;
 	public override void UpdateManipulator ()
 	{
 
-		if (LugusInput.use.down)
-		{
-			currentOffset = this.transform.position - LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, this.transform.position, LugusCamera.game);
-			referencePosition = this.transform.position;
-		}
+		this.transform.Translate(Vector3.up * moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"), Space.World);
 
-		if (LugusInput.use.dragging || LugusInput.use.down)
-		{
-			// Lerp the translation a bit.
-			Vector3 newPosition = LugusInput.use.ScreenTo3DPoint(LugusInput.use.currentPosition, referencePosition, LugusCamera.game);
 
-			//this.transform.position = Vector3.Lerp(this.transform.position, newPosition, Time.deltaTime * smoothMultiplier);
-
-			this.transform.position = newPosition;
-		}
-		
+		this.transform.Translate(LugusCamera.game.transform.right * moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Space.World);
+        
 	}
 	
 	public override void Activate()
 	{
-		gizmo.renderer.enabled = true;
+		gizmo.gameObject.SetActive(true);
 	}
 	
 	public override void Deactivate()
 	{
-		gizmo.renderer.enabled = false;
+		gizmo.gameObject.SetActive(false);
 	}
 	
 	public override void Reset ()

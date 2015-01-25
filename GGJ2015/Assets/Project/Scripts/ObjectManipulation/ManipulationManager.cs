@@ -14,6 +14,11 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 
 	public void SetupLocal()
 	{
+
+		Instantiate(ManipulationManager.use.menuPrefab);
+
+		ManipulationMenu.use.Hide();
+
 	}
 	
 	public void SetupGlobal()
@@ -32,9 +37,16 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 	}
 
 
-	protected ManipulatorGroup.ManipulationType currentManipulation = ManipulatorGroup.ManipulationType.None;
+	public ManipulatorGroup.ManipulationType currentManipulation = ManipulatorGroup.ManipulationType.None;
 	protected void Update()
 	{
+		// CHEAT FOR DEMONSTRATION TO FIX BUGS... SOMEWHAT
+		if (LugusInput.use.Key(KeyCode.F1) && LugusInput.use.Key(KeyCode.F8))
+		{
+			PlayerStateManager.use.state = PlayerStateManager.PlayerState.Free;
+		}
+
+
 
 		if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -47,9 +59,10 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 
 				if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
 					currentManipulatorGroup.transform.parent = null;
+
             }
         }
-		else if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.M))
+		else if (currentManipulatorGroup != null && currentManipulatorGroup.locked == false && Input.GetKeyDown(KeyCode.M))
 		{
 //			if (currentManipulation == ManipulatorGroup.ManipulationType.Move)
 //			{
@@ -62,9 +75,12 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 				Debug.Log("Move");
 				PlayerStateManager.use.state = PlayerStateManager.PlayerState.Manipulating;
 				currentManipulation = ManipulatorGroup.ManipulationType.Move;
+
+				if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+					currentManipulatorGroup.transform.parent = null;
 			//}
 		}
-		else if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.R))
+		else if (currentManipulatorGroup != null && currentManipulatorGroup.locked == false && Input.GetKeyDown(KeyCode.R))
 		{
 //			if (currentManipulation == ManipulatorGroup.ManipulationType.Rotate)
 //			{
@@ -77,9 +93,12 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 				Debug.Log("Rotate");
 				PlayerStateManager.use.state = PlayerStateManager.PlayerState.Manipulating;
 				currentManipulation = ManipulatorGroup.ManipulationType.Rotate;
+
+				if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+					currentManipulatorGroup.transform.parent = null;
 			//}
         }
-		else if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.G))
+		else if (currentManipulatorGroup != null && currentManipulatorGroup.locked == false && Input.GetKeyDown(KeyCode.G))
 		{
 //			if (currentManipulation == ManipulatorGroup.ManipulationType.Grab)
 //			{
@@ -93,11 +112,14 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 //			else
 //			{
 				Debug.Log("Grab");
-				//	PlayerStateManager.use.state = PlayerStateManager.PlayerState.Manipulating;
+
+			if (PlayerStateManager.use.state == PlayerStateManager.PlayerState.Manipulating)
+				PlayerStateManager.use.state = PlayerStateManager.PlayerState.Free;
+
 				currentManipulation = ManipulatorGroup.ManipulationType.Grab;
 			//}
         }
-        else if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.L))
+		else if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.L))
 		{
 			currentManipulatorGroup.locked = !currentManipulatorGroup.locked ;
 
@@ -113,11 +135,14 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 				PlayerStateManager.use.state = PlayerStateManager.PlayerState.Free;
 
 			currentManipulation = ManipulatorGroup.ManipulationType.None;
+
+			if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+				currentManipulatorGroup.transform.parent = null;
         }
         
         
         if (currentManipulatorGroup != null)
-			currentManipulatorGroup.menu.UpdateMenu();
+			ManipulationMenu.use.UpdateMenu(currentManipulatorGroup);
         
 		if (currentManipulation != ManipulatorGroup.ManipulationType.None)
 		{
@@ -135,11 +160,15 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 		if (!Physics.Raycast(LugusCamera.game.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, maxDetectDistance))
 		 {
 
-			// If nothing hit, deactive group hit in last frame.
-			if (currentManipulatorGroup != null)
+			// If nothing hit, deactivate group hit in last frame.
+			if (currentManipulatorGroup != null && currentManipulation == ManipulatorGroup.ManipulationType.None && PlayerStateManager.use.state == PlayerStateManager.PlayerState.Free)
 			{
 				currentManipulatorGroup.Deactivate();
 				
+				if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+					currentManipulatorGroup.transform.parent = null;
+
+
 				currentManipulatorGroup = null;
 				
 				if (PlayerStateManager.use.state == PlayerStateManager.PlayerState.Manipulating)
@@ -158,25 +187,47 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 		{
 
 			// Is this a different manipulator than the previous one? If no, do nothing. If yes, deactivate the rest and activate the new one.
-			if ( group != currentManipulatorGroup )
+			if ( group != currentManipulatorGroup)
 			{
-				if (currentManipulatorGroup != null)
-					currentManipulatorGroup.Deactivate();
+				if (currentManipulation == ManipulatorGroup.ManipulationType.None && PlayerStateManager.use.state == PlayerStateManager.PlayerState.Free)
+				{
+					if (currentManipulatorGroup != null)
+					{
+						currentManipulatorGroup.Deactivate();
 
-				currentManipulatorGroup = group;
-				currentManipulatorGroup.Activate();
+						
+						if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+							currentManipulatorGroup.transform.parent = null;
+					}
+
+					currentManipulatorGroup = group;
+					currentManipulatorGroup.Activate();
+				}
 			}
             
         }
 		else // If no, we hit some other collider. Deactivate all manipulators.
 		{
 			if (currentManipulatorGroup != null)
-				currentManipulatorGroup.Deactivate();
+			{
+				if (currentManipulation == ManipulatorGroup.ManipulationType.None && PlayerStateManager.use.state == PlayerStateManager.PlayerState.Free)
+				{
+					print ("wajdfgk");
 
-			currentManipulatorGroup = null;
+					currentManipulatorGroup.Deactivate();
 
-			if (PlayerStateManager.use.state == PlayerStateManager.PlayerState.Manipulating)
-				PlayerStateManager.use.state = PlayerStateManager.PlayerState.Free;
+					
+					if (currentManipulatorGroup.transform.parent == LugusCamera.game.transform)
+						currentManipulatorGroup.transform.parent = null;
+
+					currentManipulatorGroup = null;
+					
+					if (PlayerStateManager.use.state == PlayerStateManager.PlayerState.Manipulating)
+						PlayerStateManager.use.state = PlayerStateManager.PlayerState.Free;
+				}
+			}
+
+		
 		}
 
 
@@ -239,32 +290,32 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 //			currentManipulatorGroup.UpdateManipulators();
 	}
 
-	protected void OnGUI()
-	{
-		if (currentManipulatorGroup != null)
-		{
-			GUI.Box(guiRect, "");
-
-			GUILayout.BeginArea(guiRect);
-
-			if (GUILayout.Button("Reset " + currentManipulatorGroup.GetType().ToString() ))
-			{
-				currentManipulatorGroup.Reset();
-			}
-
-			string toggleText = "Lock";
-
-			if (currentManipulatorGroup.locked)
-				toggleText = "Unlock";
-
-			if (GUILayout.Button(toggleText + " " + currentManipulatorGroup.GetType().ToString() ))
-			{
-				currentManipulatorGroup.locked = !currentManipulatorGroup.locked;
-			}
-
-			GUILayout.EndArea();
-		}
-		
-
-	}
+//	protected void OnGUI()
+//	{
+//		if (currentManipulatorGroup != null)
+//		{
+//			GUI.Box(guiRect, "");
+//
+//			GUILayout.BeginArea(guiRect);
+//
+//			if (GUILayout.Button("Reset " + currentManipulatorGroup.GetType().ToString() ))
+//			{
+//				currentManipulatorGroup.Reset();
+//			}
+//
+//			string toggleText = "Lock";
+//
+//			if (currentManipulatorGroup.locked)
+//				toggleText = "Unlock";
+//
+//			if (GUILayout.Button(toggleText + " " + currentManipulatorGroup.GetType().ToString() ))
+//			{
+//				currentManipulatorGroup.locked = !currentManipulatorGroup.locked;
+//			}
+//
+//			GUILayout.EndArea();
+//		}
+//		
+//
+//	}
 }

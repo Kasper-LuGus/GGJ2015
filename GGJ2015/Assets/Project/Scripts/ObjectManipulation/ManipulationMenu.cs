@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ManipulationMenu : MonoBehaviour 
+public class ManipulationMenu : LugusSingletonExisting<ManipulationMenu>
 {
 	protected Transform lockThis = null;
 	protected Transform unlockThis = null;
 	protected Transform move = null;
 	protected Transform rotate = null;
 	protected Transform grab = null;
-	public ManipulatorGroup group;
+	protected Transform exit = null;
 
 	public void SetupLocal()
 	{
@@ -18,9 +18,25 @@ public class ManipulationMenu : MonoBehaviour
 		move = transform.FindChild("Move");
 		rotate = transform.FindChild("Rotate");
 		grab = transform.FindChild("Grab");
-
+		exit = transform.FindChild("Exit");
 	}
-	
+
+	public void Hide()
+	{
+		foreach(Renderer r in GetComponentsInChildren<Renderer>(false))
+		{
+			r.enabled = false;
+		}
+	}
+
+	public void Show()
+	{
+		foreach(Renderer r in GetComponentsInChildren<Renderer>(false))
+		{
+			r.enabled = true;
+		}
+	}
+
 	public void SetupGlobal()
 	{
 		// lookup references to objects / scripts outside of this script
@@ -35,21 +51,26 @@ public class ManipulationMenu : MonoBehaviour
 	{
 		SetupGlobal();
 	}
-	
-	protected void Update() 
-	{
-		if (group == null)
-			return;
 
+
+	public void UpdateMenu(ManipulatorGroup group)
+	{
 		Vector3 newPos = LugusCamera.game.WorldToViewportPoint(group.transform.position);
 		newPos = LugusCamera.ui.ViewportToWorldPoint(newPos).zAdd(10);
+		
+		//this.transform.position = Vector3.Lerp(this.transform.position, newPos, Time.deltaTime) * 0.25f;
 
 		this.transform.position = newPos;
-		//this.transform.LookAt(LugusCamera.game.transform);
-	}
 
-	public void UpdateMenu()
-	{
+		if (ManipulationManager.use.currentManipulation != ManipulatorGroup.ManipulationType.None)
+		{
+			exit.gameObject.SetActive(true);
+		}
+		else
+		{
+			exit.gameObject.SetActive(false);
+		}
+
 		if (group.locked)
 		{
 			lockThis.gameObject.SetActive(false);

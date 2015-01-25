@@ -12,13 +12,14 @@ public class NightEvent : MonoBehaviour
     public int speedNight = 20;
 
     public Texture callToSleep;
-    public Texture nightEvent;
+    public List<Texture> nightEvent;
+    public List<string> nightEventStrings;
+    public Texture textBoxImage;
 
     private List<string> callsToSleep = new List<string>();
-    private List<string> nightEvents = new List<string>();
 
     private bool isSleeping = false;
-    private string text;
+    private int index;
 
     // Use this for initialization
     void Start()
@@ -27,7 +28,7 @@ public class NightEvent : MonoBehaviour
         callsToSleep.Add("It's getting dark outside.");
         callsToSleep.Add("Come inside it's getting cold.");
 
-        nightEvents.Add("Oh it's looks like it has rained.");
+        tod.speed = speedDay;
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class NightEvent : MonoBehaviour
                 if (currentTime >= hourToSleep)
                 {
                     tod.speed = 0;
-                    text = callsToSleep[Random.Range(0, callsToSleep.Count - 1)];
+                    index = Random.Range(0, callsToSleep.Count - 1);
                 }
             }
             else
@@ -49,7 +50,7 @@ public class NightEvent : MonoBehaviour
                 if (currentTime >= hourToGetUp &&  currentTime < hourToSleep)
                 {
                     tod.speed = 0;
-                    text = nightEvents[Random.Range(0, nightEvents.Count - 1)];
+                    index = Random.Range(0, nightEvent.Count - 1);
                 }
             }
         }
@@ -59,10 +60,17 @@ public class NightEvent : MonoBehaviour
     {
         if (tod.speed == 0)
         {
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = Color.black;
+            style.fontSize = 28;
+            style.wordWrap = true;
+            int textBoxWidth = textBoxImage.width / 2;
+            int textBoxHeight = textBoxImage.height / 2;
+            GUI.DrawTexture(new Rect(Screen.width / 2 - textBoxWidth / 2, Screen.height - textBoxHeight - 10, textBoxWidth, textBoxHeight), textBoxImage);
             if (!isSleeping)
-            {
-                GUI.Label(new Rect(800, 800, 300, 100), new GUIContent(text, callToSleep));
-                if (GUI.Button(new Rect(1100, 800, 100, 50), "Continue"))
+            {  
+                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(callsToSleep[index], callToSleep), style);
+                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight / 2 - 25, 80, 50), "Continue"))
                 {
                     isSleeping = true;
                     tod.speed = speedNight;
@@ -70,8 +78,8 @@ public class NightEvent : MonoBehaviour
             }
             else
             {
-                GUI.Label(new Rect(800, 800, 300, 100), new GUIContent(text, nightEvent));
-                if (GUI.Button(new Rect(1100, 800, 100, 50), "Continue"))
+                GUI.Label(new Rect(Screen.width / 2 + 10 - textBoxWidth / 2, Screen.height - textBoxHeight, textBoxWidth - 100, textBoxHeight), new GUIContent(nightEventStrings[index], nightEvent[index]), style);
+                if (GUI.Button(new Rect(Screen.width / 2 + textBoxWidth / 2 - 90, Screen.height - textBoxHeight/2 - 25, 80, 50), "Continue"))
                 {
                     isSleeping = false;
                     tod.speed = speedDay;

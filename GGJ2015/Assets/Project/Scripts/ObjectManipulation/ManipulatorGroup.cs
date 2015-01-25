@@ -6,12 +6,11 @@ public class ManipulatorGroup : MonoBehaviour
 {
 	public bool locked = false;
 
-	protected Collider mainCollider = null;
+	//protected Collider mainCollider = null;
 	protected List<ObjectManipulator> manipulators = new List<ObjectManipulator>();
-	protected Rigidbody attachedRigidbody = null;
+	public Rigidbody attachedRigidbody = null;
 
 	protected Color oldOutline = Color.black;
-	public ManipulationMenu menu = null;
 
 	public enum ManipulationType
 	{
@@ -31,20 +30,13 @@ public class ManipulatorGroup : MonoBehaviour
 			om.group = this;
 		}
 
-		gameObject.CacheComponent<Collider>(ref mainCollider);
+	//	gameObject.CacheComponent<Collider>(ref mainCollider);
 
 		// Rigidbody is not per se required. Not having one could be expected behavior.
 		if (attachedRigidbody == null)
 		{
 			attachedRigidbody = GetComponent<Rigidbody>();
 		}
-
-		menu = (ManipulationMenu) Instantiate(ManipulationManager.use.menuPrefab);
-		menu.group = this;
-		menu.transform.parent = this.transform;
-		menu.gameObject.SetActive(false);
-
-
 
 	}
 	
@@ -71,17 +63,19 @@ public class ManipulatorGroup : MonoBehaviour
 	public void Activate()
 	{
 		if (rigidbody != null)
+		{
 			rigidbody.isKinematic = true;
-//
-//		foreach(ObjectManipulator om in manipulators)
-//		{
-//			om.Activate();
-//		}
+		
+		}
+
+		rigidbody.gameObject.layer = LayerMask.NameToLayer("IgnoreCollision");
 
 		oldOutline = this.renderer.sharedMaterial.GetColor("_OutlineColor");
 		this.renderer.material.SetColor("_OutlineColor", Color.white);
 
-		menu.gameObject.SetActive(true);
+		ManipulationMenu.use.Show();
+
+		attachedRigidbody.constraints = RigidbodyConstraints.FreezeAll;
 	}
 
 	public void Deactivate()
@@ -95,15 +89,21 @@ public class ManipulatorGroup : MonoBehaviour
 		{
 			rigidbody.isKinematic = false;
 			rigidbody.WakeUp();
+		
 		}
+
+		rigidbody.gameObject.layer = LayerMask.NameToLayer("Default");
 
 		this.renderer.material.SetColor("_OutlineColor", oldOutline);
 
-		menu.gameObject.SetActive(false);
+		ManipulationMenu.use.Hide();
+
+		attachedRigidbody.constraints = RigidbodyConstraints.None;
 	}
 
 	public void UpdateManipulators(ManipulationType type)
 	{
+
 		// TODO FIXME: This makes very little sense...
 		if (type == ManipulationType.Move)
 		{

@@ -271,11 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &313941392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,16 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
 --- !u!223 &313941393
 Canvas:
   m_ObjectHideFlags: 0
@@ -884,21 +869,6 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: .1953125, g: .1953125, b: .1953125, a: 1}
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
 --- !u!222 &1041716598
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -960,7 +930,7 @@ GameObject:
   - 4: {fileID: 1129752984}
   - 33: {fileID: 1129752983}
   - 23: {fileID: 1129752982}
-  - 111: {fileID: 1129752981}
+  - 136: {fileID: 1129752981}
   m_Layer: 0
   m_Name: TreeSycamore01
   m_TagString: Untagged
@@ -968,21 +938,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!111 &1129752981
-Animation:
+--- !u!136 &1129752981
+CapsuleCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11182118, guid: 72d66514bc01e204db09946f9f08c764,
+  m_PrefabParentObject: {fileID: 13692002, guid: 72d66514bc01e204db09946f9f08c764,
     type: 2}
   m_PrefabInternal: {fileID: 692545833}
   m_GameObject: {fileID: 1129752980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Radius: .600000024
+  m_Height: 20
+  m_Direction: 1
+  m_Center: {x: 0, y: 9, z: 0}
 --- !u!23 &1129752982
 Renderer:
   m_ObjectHideFlags: 0
@@ -1199,6 +1168,7 @@ GameObject:
   - 4: {fileID: 1372229369}
   - 33: {fileID: 1372229368}
   - 23: {fileID: 1372229367}
+  - 136: {fileID: 1372229370}
   m_Layer: 0
   m_Name: TreeAcacia01
   m_TagString: Untagged
@@ -1248,6 +1218,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!136 &1372229370
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13624096, guid: fade4dbe5c7334644816607b41a95fd6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1800881157}
+  m_GameObject: {fileID: 1372229366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .657489002
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &1598521300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,10 +1302,18 @@ MonoBehaviour:
   tod: {fileID: 265373795}
   hourToSleep: 18
   hourToGetUp: 8
-  speedDay: 100
+  speedDay: 60
   speedNight: 20
-  callToSleep: {fileID: 2800000, guid: 5ef0e9adc38db154a9bbc26cd14f051b, type: 3}
-  nightEvent: {fileID: 2800000, guid: 2328ad038595d564ebf0096622fbd4d0, type: 3}
+  callToSleep: {fileID: 2800000, guid: d5836044382a3d24b83b408f9626f90d, type: 3}
+  nightEvent:
+  - {fileID: 2800000, guid: c62e57026877d1942b99ed41e14a16bc, type: 3}
+  - {fileID: 2800000, guid: a020010cdd0df9d4c866744ca97df605, type: 3}
+  - {fileID: 2800000, guid: f58437bd8a0f6b5429df50811b1ab700, type: 3}
+  nightEventStrings:
+  - Your childhood nemesis came to destroy your precious fortress
+  - The evil girl came to destroy your garden
+  - The naughty dog escaped again from the junkyard.
+  textBoxImage: {fileID: 2800000, guid: 0a6cf9c5768535c4c879e5652106c86c, type: 3}
 --- !u!4 &1793377714
 Transform:
   m_ObjectHideFlags: 0
@@ -1400,6 +1392,7 @@ GameObject:
   - 4: {fileID: 1822311120}
   - 33: {fileID: 1822311119}
   - 23: {fileID: 1822311118}
+  - 136: {fileID: 1822311121}
   m_Layer: 0
   m_Name: TreeBirch01
   m_TagString: Untagged
@@ -1449,6 +1442,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!136 &1822311121
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13653092, guid: 6c1e5622e8ff872429154ee66673e197,
+    type: 2}
+  m_PrefabInternal: {fileID: 1160595803}
+  m_GameObject: {fileID: 1822311117}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .259425342
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &1875643847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1485,6 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
 --- !u!114 &1875643849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1490,12 +1496,6 @@ MonoBehaviour:
   m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_AllowActivationOnMobileDevice: 0
 --- !u!114 &1875643850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1507,9 +1507,6 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!4 &1875643851
 Transform:
   m_ObjectHideFlags: 0

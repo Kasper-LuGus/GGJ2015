@@ -11,6 +11,7 @@ public class ManipulatorGroup : MonoBehaviour
 	protected Rigidbody attachedRigidbody = null;
 
 	protected Color oldOutline = Color.black;
+	public ManipulationMenu menu = null;
 
 	public enum ManipulationType
 	{
@@ -37,6 +38,14 @@ public class ManipulatorGroup : MonoBehaviour
 		{
 			attachedRigidbody = GetComponent<Rigidbody>();
 		}
+
+		menu = (ManipulationMenu) Instantiate(ManipulationManager.use.menuPrefab);
+		menu.group = this;
+		menu.transform.parent = this.transform;
+		menu.gameObject.SetActive(false);
+
+
+
 	}
 	
 	public void SetupGlobal()
@@ -63,22 +72,24 @@ public class ManipulatorGroup : MonoBehaviour
 	{
 		if (rigidbody != null)
 			rigidbody.isKinematic = true;
-
-		foreach(ObjectManipulator om in manipulators)
-		{
-			om.Activate();
-		}
+//
+//		foreach(ObjectManipulator om in manipulators)
+//		{
+//			om.Activate();
+//		}
 
 		oldOutline = this.renderer.sharedMaterial.GetColor("_OutlineColor");
 		this.renderer.material.SetColor("_OutlineColor", Color.white);
+
+		menu.gameObject.SetActive(true);
 	}
 
 	public void Deactivate()
 	{
-		foreach(ObjectManipulator om in manipulators)
-		{
-			om.Deactivate();
-		}
+//		foreach(ObjectManipulator om in manipulators)
+//		{
+//			om.Deactivate();
+//		}
 
 		if (rigidbody != null && locked == false)
 		{
@@ -87,6 +98,8 @@ public class ManipulatorGroup : MonoBehaviour
 		}
 
 		this.renderer.material.SetColor("_OutlineColor", oldOutline);
+
+		menu.gameObject.SetActive(false);
 	}
 
 	public void UpdateManipulators(ManipulationType type)

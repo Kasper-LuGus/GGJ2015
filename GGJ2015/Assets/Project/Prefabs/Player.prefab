@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11431058}
   - 114: {fileID: 11431056}
   - 114: {fileID: 11431054}
+  - 114: {fileID: 11486798}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,6 +245,24 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+--- !u!114 &11486798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd700665fc33b049af89cceec37c7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSounds:
+  - {fileID: 8300000, guid: d87bc4b10ce74b64aa646965c2f7e0d3, type: 3}
+  - {fileID: 8300000, guid: 8105ae532d6660440a6b6a9a45ab9e32, type: 3}
+  - {fileID: 8300000, guid: b7ce707cf8b4aef45909cf87cb6a2665, type: 3}
+  - {fileID: 8300000, guid: 42bed5abe27a14041bfb4f4a6ffbc94d, type: 3}
+  - {fileID: 8300000, guid: 84aedf9744c1b624481ca6b5faffddca, type: 3}
+  - {fileID: 8300000, guid: 82b127402dd3a9341a665bb02b3e476b, type: 3}
 --- !u!124 &12431054
 Behaviour:
   m_ObjectHideFlags: 1

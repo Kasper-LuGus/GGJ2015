@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 474894}
   - 114: {fileID: 11426002}
+  - 114: {fileID: 11406544}
   m_Layer: 0
   m_Name: _SCRIPTCONTAINER
   m_TagString: Untagged
@@ -28,6 +29,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11406544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17eaf1eaebda02d4eb482231f3eca741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambientLoops:
+  - {fileID: 8300000, guid: 8ced5da7ea1a31449a09c2f4a8f5a902, type: 3}
 --- !u!114 &11426002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -43,6 +57,7 @@ MonoBehaviour:
   rotateGizmoPrefab: {fileID: 147958, guid: 66f33b3bfbf1d5c4390cfde1ad216754, type: 2}
   translateGizmoPrefab: {fileID: 144390, guid: a4fd6feb346d81e4cbcdc25ec951467b, type: 2}
   menuPrefab: {fileID: 11490822, guid: 65876378e20a141468ac449427fe088a, type: 2}
+  currentManipulation: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 {
 	public PopupType test = PopupType.None;
 	public string testText = "";
-
+	public TOD timeOfDay = null;
 
 	protected Transform popupParent = null;
 	protected Vector3 originalLocation = Vector3.zero;
@@ -14,6 +14,7 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 	protected Transform imagesParent = null;
 	protected TextMeshWrapper textDisplay = null;
 	protected bool up = false;
+	protected PopupType currentType = PopupType.None;
 
 	public enum PopupType
 	{
@@ -47,6 +48,7 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 	public void SetupGlobal()
 	{
 		// lookup references to objects / scripts outside of this script
+		StartCoroutine(RandomRoutine());
 	}
 	
 	protected void Awake()
@@ -58,7 +60,8 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 	{
 		SetupGlobal();
 	}
-	
+
+
 	protected void Update() 
 	{
 		if (up)
@@ -66,13 +69,39 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 			if (LugusInput.use.KeyDown(KeyCode.Return) || LugusInput.use.KeyDown(KeyCode.KeypadEnter))
 			{
 				Hide(false);
+
+				if (currentType == PopupType.Grandma)
+				{
+					timeOfDay.slider = .35f;
+					timeOfDay.slider2 = 0;
+					timeOfDay.Hour = 8;
+					timeOfDay.speed = 240;
+				}
 			}
+		}
+		else
+		{
+		
 		}
 
 //		if (LugusInput.use.KeyDown(KeyCode.P))
 //		{
 //			ShowPopup(testText, test);
 //		}
+	}
+
+	protected IEnumerator RandomRoutine()
+	{
+		while(Application.isPlaying)
+		{
+			yield return new WaitForSeconds(Random.Range(10.0f, 30.0f));
+
+			if (up == false && Random.value > 0.5f)
+			{
+				ShowPopup("Uh-oh...", (PopupType) Random.Range(1, 5)); 
+			}
+			
+		}
 	}
 
 	public void ShowPopup(PopupType popup)
@@ -99,6 +128,8 @@ public class PopupManager : LugusSingletonExisting<PopupManager>
 		}
 	
 		textDisplay.SetText(text);
+
+		currentType = popup;
 	}
 
 	public void Hide(bool immediate)

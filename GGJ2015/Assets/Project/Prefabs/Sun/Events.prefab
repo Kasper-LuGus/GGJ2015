@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -38.7366486, y: 95.192543, z: 53.0846214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -42,8 +42,8 @@ MonoBehaviour:
   tod: {fileID: 0}
   hourToSleep: 18
   hourToGetUp: 8
-  speedDay: 20
-  speedNight: 20
+  speedDay: 240
+  speedNight: 240
   callToSleep: {fileID: 2800000, guid: d5836044382a3d24b83b408f9626f90d, type: 3}
   nightEvent:
   - {fileID: 2800000, guid: c62e57026877d1942b99ed41e14a16bc, type: 3}

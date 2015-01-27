@@ -30,7 +30,7 @@ public class PlayerStateManager : LugusSingletonExisting<PlayerStateManager>
 
 	}
 
-	protected PlayerState _state = PlayerState.None;
+	protected PlayerState _state = PlayerState.Free;
 	public delegate void OnStateChanged(PlayerState newState);
 	public OnStateChanged onStateChanged = null;
 
@@ -52,7 +52,7 @@ public class PlayerStateManager : LugusSingletonExisting<PlayerStateManager>
 	protected void Start() 
 	{
 		SetupGlobal();
-        state = PlayerState.Menu;
+       // state = PlayerState.Menu;
 	}
 	
 	protected void Update() 

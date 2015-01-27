@@ -43,6 +43,7 @@ public class SimpleCharacterController : MonoBehaviour
 	{
 		CheckGrounded();
 
+
 		if (PlayerStateManager.use.state != PlayerStateManager.PlayerState.Free)
 			return;
 

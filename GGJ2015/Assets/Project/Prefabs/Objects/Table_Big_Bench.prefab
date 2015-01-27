@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 469904}
   - 33: {fileID: 3369904}
   - 23: {fileID: 2369904}
+  - 65: {fileID: 6501560}
   m_Layer: 0
   m_Name: Table_Big_Bench
   m_TagString: Untagged
@@ -56,6 +57,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169904}
   m_Mesh: {fileID: 4300000, guid: 2f8acd62ae2f149c1a9c66c5ab6a4097, type: 3}
+--- !u!65 &6501560
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169904}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .511165261, y: .441043824, z: 2.26024747}
+  m_Center: {x: -.263334453, y: .369360268, z: -.00462889671}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

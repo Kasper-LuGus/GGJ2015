@@ -48,7 +48,7 @@ public class ManipulationManager : LugusSingletonExisting<ManipulationManager>
 
 
 
-		if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.Escape))
+		if (currentManipulatorGroup != null && Input.GetKeyDown(KeyCode.E))
 		{
 			if (currentManipulation != ManipulatorGroup.ManipulationType.None)
 			{

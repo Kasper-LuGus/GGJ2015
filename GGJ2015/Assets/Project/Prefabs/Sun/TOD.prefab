@@ -125,7 +125,7 @@ Light:
   serializedVersion: 3
   m_Type: 1
   m_Color: {r: .999898195, g: .997052133, b: .995819867, a: 0}
-  m_Intensity: .59558773
+  m_Intensity: .300000012
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 60
@@ -165,7 +165,7 @@ MonoBehaviour:
   slider2: 0
   Hour: 8
   sun: {fileID: 10882560}
-  speed: 50
+  speed: 240
   NightFogColor: {r: 0, g: 0, b: 0, a: 0}
   DuskFogColor: {r: .192156866, g: .145098045, b: .121568628, a: 0}
   MorningFogColor: {r: .4627451, g: .443137258, b: .41568628, a: 0}
